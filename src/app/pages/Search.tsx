@@ -1,5 +1,5 @@
-import { useState, useMemo, useEffect } from "react";
-import { Link } from "react-router";
+import { useState, useMemo, useEffect, useCallback } from "react";
+import { Link, useSearchParams } from "react-router";
 import { GlassCard } from "../components/GlassCard";
 import { getMartyrs, Martyr } from "../data/db";
 import { Search as SearchIcon, Filter, X, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
@@ -54,28 +54,45 @@ import { ImageWithRoseFallback } from "../components/ImageWithRoseFallback";
     />
   );
 export function Search() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [nationalId, setNationalId] = useState("");
-  const [codeIsar, setCodeIsar] = useState("");
-  const [veteranStatus, setVeteranStatus] = useState("");
-  const [age, setAge] = useState("");
-  const [birthYear, setBirthYear] = useState("");
-  const [birthMonth, setBirthMonth] = useState("");
-  const [birthDay, setBirthDay] = useState("");
-  const [martyrdomYear, setMartyrdomYear] = useState("");
-  const [martyrdomMonth, setMartyrdomMonth] = useState("");
-  const [martyrdomDay, setMartyrdomDay] = useState("");
-  const [birthPlace, setBirthPlace] = useState("");
-  const [burialPlace, setBurialPlace] = useState("");
-  const [fileLocation, setFileLocation] = useState("");
-  const [gender, setGender] = useState("");
-  const [nationality, setNationality] = useState("");
-  const [religion, setReligion] = useState("");
-  const [occupation, setOccupation] = useState("");
-  const [servingUnit, setServingUnit] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // Initialize state from URL params
+  const getParam = (key: string) => searchParams.get(key) || "";
+  
+  const [searchTerm, setSearchTerm] = useState(getParam("search"));
+  const [nationalId, setNationalId] = useState(getParam("nationalId"));
+  const [codeIsar, setCodeIsar] = useState(getParam("codeIsar"));
+  const [veteranStatus, setVeteranStatus] = useState(getParam("veteranStatus"));
+  const [age, setAge] = useState(getParam("age"));
+  const [birthYear, setBirthYear] = useState(getParam("birthYear"));
+  const [birthMonth, setBirthMonth] = useState(getParam("birthMonth"));
+  const [birthDay, setBirthDay] = useState(getParam("birthDay"));
+  const [martyrdomYear, setMartyrdomYear] = useState(getParam("martyrdomYear"));
+  const [martyrdomMonth, setMartyrdomMonth] = useState(getParam("martyrdomMonth"));
+  const [martyrdomDay, setMartyrdomDay] = useState(getParam("martyrdomDay"));
+  const [birthPlace, setBirthPlace] = useState(getParam("birthPlace"));
+  const [burialPlace, setBurialPlace] = useState(getParam("burialPlace"));
+  const [fileLocation, setFileLocation] = useState(getParam("fileLocation"));
+  const [gender, setGender] = useState(getParam("gender"));
+  const [nationality, setNationality] = useState(getParam("nationality"));
+  const [religion, setReligion] = useState(getParam("religion"));
+  const [occupation, setOccupation] = useState(getParam("occupation"));
+  const [servingUnit, setServingUnit] = useState(getParam("servingUnit"));
 
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(() => {
+    // Open filters if any filter is active from URL
+    return !!(getParam("nationalId") || getParam("codeIsar") || getParam("veteranStatus") || 
+              getParam("age") || getParam("birthYear") || getParam("birthMonth") || getParam("birthDay") ||
+              getParam("martyrdomYear") || getParam("martyrdomMonth") || getParam("martyrdomDay") ||
+              getParam("birthPlace") || getParam("burialPlace") || getParam("fileLocation") ||
+              getParam("gender") || getParam("nationality") || getParam("religion") ||
+              getParam("occupation") || getParam("servingUnit"));
+  });
+  
+  const [currentPage, setCurrentPage] = useState(() => {
+    const pageParam = searchParams.get("page");
+    return pageParam ? Math.max(1, parseInt(pageParam)) : 1;
+  });
   const itemsPerPage = 24;
 
   const martyrsData = useMemo(() => getMartyrs(), []);
@@ -83,6 +100,40 @@ export function Search() {
   useEffect(() => {
     document.title = "گلزار تربت - جستجوی پیشرفته";
   }, []);
+
+  // Sync state to URL
+  const updateURL = useCallback(() => {
+    const params = new URLSearchParams();
+    
+    if (searchTerm) params.set("search", searchTerm);
+    if (nationalId) params.set("nationalId", nationalId);
+    if (codeIsar) params.set("codeIsar", codeIsar);
+    if (veteranStatus) params.set("veteranStatus", veteranStatus);
+    if (age) params.set("age", age);
+    if (birthYear) params.set("birthYear", birthYear);
+    if (birthMonth) params.set("birthMonth", birthMonth);
+    if (birthDay) params.set("birthDay", birthDay);
+    if (martyrdomYear) params.set("martyrdomYear", martyrdomYear);
+    if (martyrdomMonth) params.set("martyrdomMonth", martyrdomMonth);
+    if (martyrdomDay) params.set("martyrdomDay", martyrdomDay);
+    if (birthPlace) params.set("birthPlace", birthPlace);
+    if (burialPlace) params.set("burialPlace", burialPlace);
+    if (fileLocation) params.set("fileLocation", fileLocation);
+    if (gender) params.set("gender", gender);
+    if (nationality) params.set("nationality", nationality);
+    if (religion) params.set("religion", religion);
+    if (occupation) params.set("occupation", occupation);
+    if (servingUnit) params.set("servingUnit", servingUnit);
+    if (currentPage > 1) params.set("page", currentPage.toString());
+    
+    setSearchParams(params, { replace: true });
+  }, [searchTerm, nationalId, codeIsar, veteranStatus, age, birthYear, birthMonth, birthDay,
+      martyrdomYear, martyrdomMonth, martyrdomDay, birthPlace, burialPlace, fileLocation,
+      gender, nationality, religion, occupation, servingUnit, currentPage, setSearchParams]);
+
+  useEffect(() => {
+    updateURL();
+  }, [updateURL]);
   
   const getUnique = (key: keyof Martyr) => 
     Array.from(new Set(martyrsData.map(m => m[key] as string).filter(Boolean)));

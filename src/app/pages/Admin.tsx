@@ -319,78 +319,146 @@ export function Admin() {
                 </button>
               </div>
               <div className="p-6 overflow-y-auto max-h-[60vh] hide-scrollbar">
-                <form id="edit-martyr-form" onSubmit={handleSaveMartyr} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">نام</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.firstName}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, firstName: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
+                <form id="edit-martyr-form" onSubmit={handleSaveMartyr} className="space-y-6">
+                  {/* Basic Information */}
+                  <div className="bg-blue-50/50 dark:bg-blue-900/20 p-4 rounded-xl">
+                    <h4 className="text-sm font-bold text-blue-700 dark:text-blue-300 mb-3">اطلاعات اصلی</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">نام</label>
+                        <input type="text" value={editingMartyr.firstName} onChange={(e) => setEditingMartyr({...editingMartyr, firstName: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">نام خانوادگی</label>
+                        <input type="text" value={editingMartyr.lastName} onChange={(e) => setEditingMartyr({...editingMartyr, lastName: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">نام پدر</label>
+                        <input type="text" value={editingMartyr.fatherName} onChange={(e) => setEditingMartyr({...editingMartyr, fatherName: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">کد ملی</label>
+                        <input type="text" value={editingMartyr.nationalId} onChange={(e) => setEditingMartyr({...editingMartyr, nationalId: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">کد ایثار</label>
+                        <input type="text" value={editingMartyr.codeIsar} onChange={(e) => setEditingMartyr({...editingMartyr, codeIsar: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">وضعیت ایثارگری</label>
+                        <input type="text" value={editingMartyr.veteranStatus} onChange={(e) => setEditingMartyr({...editingMartyr, veteranStatus: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">نام خانوادگی</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.lastName}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, lastName: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
+
+                  {/* Personal Information */}
+                  <div className="bg-emerald-50/50 dark:bg-emerald-900/20 p-4 rounded-xl">
+                    <h4 className="text-sm font-bold text-emerald-700 dark:text-emerald-300 mb-3">مشخصات فردی</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">جنسیت</label>
+                        <input type="text" value={editingMartyr.gender} onChange={(e) => setEditingMartyr({...editingMartyr, gender: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ملیت</label>
+                        <input type="text" value={editingMartyr.nationality} onChange={(e) => setEditingMartyr({...editingMartyr, nationality: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">مذهب</label>
+                        <input type="text" value={editingMartyr.religion} onChange={(e) => setEditingMartyr({...editingMartyr, religion: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">وضعیت تاهل</label>
+                        <input type="text" value={editingMartyr.maritalStatus} onChange={(e) => setEditingMartyr({...editingMartyr, maritalStatus: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">تحصیلات</label>
+                        <input type="text" value={editingMartyr.education} onChange={(e) => setEditingMartyr({...editingMartyr, education: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">شغل</label>
+                        <input type="text" value={editingMartyr.occupation} onChange={(e) => setEditingMartyr({...editingMartyr, occupation: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">سن (در زمان شهادت)</label>
+                        <input type="number" value={editingMartyr.age ?? ''} onChange={(e) => setEditingMartyr({...editingMartyr, age: e.target.value ? parseInt(e.target.value) : null})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">کد ملی</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.nationalId}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, nationalId: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
+
+                  {/* Dates */}
+                  <div className="bg-amber-50/50 dark:bg-amber-900/20 p-4 rounded-xl">
+                    <h4 className="text-sm font-bold text-amber-700 dark:text-amber-300 mb-3">تاریخ‌ها</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">تاریخ تولد</label>
+                        <div className="grid grid-cols-3 gap-2">
+                          <input type="text" placeholder="روز" value={editingMartyr.birthDay} onChange={(e) => setEditingMartyr({...editingMartyr, birthDay: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-center" />
+                          <input type="text" placeholder="ماه" value={editingMartyr.birthMonth} onChange={(e) => setEditingMartyr({...editingMartyr, birthMonth: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-center" />
+                          <input type="text" placeholder="سال" value={editingMartyr.birthYear} onChange={(e) => setEditingMartyr({...editingMartyr, birthYear: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-center" />
+                        </div>
+                        <input type="text" placeholder="تاریخ کامل (اختیاری)" value={editingMartyr.birthDate} onChange={(e) => setEditingMartyr({...editingMartyr, birthDate: e.target.value})} className="w-full mt-2 p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">تاریخ شهادت</label>
+                        <div className="grid grid-cols-3 gap-2">
+                          <input type="text" placeholder="روز" value={editingMartyr.martyrdomDay} onChange={(e) => setEditingMartyr({...editingMartyr, martyrdomDay: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-center" />
+                          <input type="text" placeholder="ماه" value={editingMartyr.martyrdomMonth} onChange={(e) => setEditingMartyr({...editingMartyr, martyrdomMonth: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-center" />
+                          <input type="text" placeholder="سال" value={editingMartyr.martyrdomYear} onChange={(e) => setEditingMartyr({...editingMartyr, martyrdomYear: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 text-center" />
+                        </div>
+                        <input type="text" placeholder="تاریخ کامل (اختیاری)" value={editingMartyr.martyrdomDate} onChange={(e) => setEditingMartyr({...editingMartyr, martyrdomDate: e.target.value})} className="w-full mt-2 p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">کد ایثار</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.codeIsar}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, codeIsar: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
+
+                  {/* Locations */}
+                  <div className="bg-purple-50/50 dark:bg-purple-900/20 p-4 rounded-xl">
+                    <h4 className="text-sm font-bold text-purple-700 dark:text-purple-300 mb-3">مکان‌ها</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">محل تولد</label>
+                        <input type="text" value={editingMartyr.birthPlace} onChange={(e) => setEditingMartyr({...editingMartyr, birthPlace: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">محل گلزار (دفن)</label>
+                        <input type="text" value={editingMartyr.burialPlace} onChange={(e) => setEditingMartyr({...editingMartyr, burialPlace: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">محل پرونده</label>
+                        <input type="text" value={editingMartyr.fileLocation} onChange={(e) => setEditingMartyr({...editingMartyr, fileLocation: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">محل تولد</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.birthPlace}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, birthPlace: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">محل گلزار</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.burialPlace}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, burialPlace: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">یگان خدمت</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.servingUnit}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, servingUnit: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">عملیات نظامی</label>
-                    <input
-                      type="text"
-                      value={editingMartyr.militaryOperation}
-                      onChange={(e) => setEditingMartyr({...editingMartyr, militaryOperation: e.target.value})}
-                      className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
-                    />
+
+                  {/* Military Information */}
+                  <div className="bg-rose-50/50 dark:bg-rose-900/20 p-4 rounded-xl">
+                    <h4 className="text-sm font-bold text-rose-700 dark:text-rose-300 mb-3">اطلاعات نظامی</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">یگان خدمت</label>
+                        <input type="text" value={editingMartyr.servingUnit} onChange={(e) => setEditingMartyr({...editingMartyr, servingUnit: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">نوع عضویت</label>
+                        <input type="text" value={editingMartyr.membershipType} onChange={(e) => setEditingMartyr({...editingMartyr, membershipType: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">عملیات نظامی</label>
+                        <input type="text" value={editingMartyr.militaryOperation} onChange={(e) => setEditingMartyr({...editingMartyr, militaryOperation: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">منطقه عملیات</label>
+                        <input type="text" value={editingMartyr.operationZone} onChange={(e) => setEditingMartyr({...editingMartyr, operationZone: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">جریان رویداد</label>
+                        <input type="text" value={editingMartyr.eventStream} onChange={(e) => setEditingMartyr({...editingMartyr, eventStream: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">دشمن</label>
+                        <input type="text" value={editingMartyr.enemy} onChange={(e) => setEditingMartyr({...editingMartyr, enemy: e.target.value})} className="w-full p-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500" />
+                      </div>
+                    </div>
                   </div>
                 </form>
               </div>
