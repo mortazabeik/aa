@@ -11,6 +11,23 @@ function e($v): string
     return htmlspecialchars((string)($v ?? ''), ENT_QUOTES, 'UTF-8');
 }
 
+// اجرای کوئری و گرفتن یک ردیف
+function db_one(string $sql, array $params = []): ?array
+{
+    $stmt = db()->prepare($sql);
+    $stmt->execute($params);
+    $row = $stmt->fetch();
+    return $row === false ? null : $row;
+}
+
+// اجرای کوئری و گرفتن همه ردیف‌ها
+function db_all(string $sql, array $params = []): array
+{
+    $stmt = db()->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll();
+}
+
 // ساخت آدرس با در نظر گرفتن BASE_URL
 function url(string $path = ''): string
 {
